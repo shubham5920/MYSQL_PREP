@@ -1,0 +1,57 @@
+-----------------------------------------------------------------------------------------------------
+
+CREATE TABLE booksales (
+  id INTEGER PRIMARY KEY,
+  state TEXT NOT NULL,
+  datee date not NULL,
+  sales int
+);
+
+
+TRUNCATE TABLE booksales
+
+# Snowflake SQL equivalent of the MySQL insert statements
+snowflake_sql = """
+INSERT INTO booksales (id, state, datee, sales)
+VALUES
+    (1, 'Jharkhand', '2022-06-22', 603),
+    (2, 'Jharkhand', '2022-06-21', 478),
+    (3, 'Jharkhand', '2022-06-20', 679),
+    (4, 'Jharkhand', '2022-06-19', 443),
+    (5, 'Jharkhand', '2022-06-18', 540),
+    (6, 'Jharkhand', '2022-06-17', 806),
+    (7, 'Jharkhand', '2022-06-16', 939),
+    (8, 'Jharkhand', '2022-06-15', 803),
+    (9, 'Jharkhand', '2022-06-14', 440),
+    (10, 'Jharkhand', '2022-06-13', 444),
+    (11, 'Bihar', '2022-06-22', 563),
+    (12, 'Bihar', '2022-06-21', 371),
+    (13, 'Bihar', '2022-06-20', 881),
+    (14, 'Bihar', '2022-06-19', 541),
+    (15, 'Bihar', '2022-06-18', 829),
+    (16, 'Bihar', '2022-06-17', 846),
+    (17, 'Bihar', '2022-06-16', 653),
+    (18, 'Bihar', '2022-06-15', 531),
+    (19, 'Bihar', '2022-06-14', 327),
+    (20, 'Bihar', '2022-06-13', 717),
+    (21, 'Maharastra', '2022-06-22', 925),
+    (22, 'Maharastra', '2022-06-21', 896),
+    (23, 'Maharastra', '2022-06-20', 647),
+    (24, 'Maharastra', '2022-06-19', 419),
+    (25, 'Maharastra', '2022-06-18', 762),
+    (26, 'Maharastra', '2022-06-17', 415),
+    (27, 'Maharastra', '2022-06-16', 834),
+    (28, 'Maharastra', '2022-06-15', 822),
+    (29, 'Maharastra', '2022-06-14', 887),
+    (30, 'Maharastra', '2022-06-13', 828);
+
+
+
+
+
+q)getting fifth day sales
+q)is sales incresaed from first day
+
+
+SELECT *,NTH_Value(sales,4) over (partition by state order by datee rows between unbounded preceding and unbounded following) as nth_val
+ from BOOKSALES
